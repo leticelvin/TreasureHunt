@@ -82,6 +82,23 @@ var chest2;
 var chest3;
 
 
+var diamondurl;
+ 
+
+function getImageFromPexels(){
+   // make a request towards pexels API and get 1 Diamond image ✔️
+   var xhr = new XMLHttpRequest();
+   xhr.open('GET', 'https://api.pexels.com/v1/search?query="diamond"&size=medium&per_page=1&page=1', true);
+   xhr.setRequestHeader('Authorization', '563492ad6f917000010000011df9ef7e9ade426dae001a4f595318a2');
+   xhr.onload = () => {
+      const data = JSON.parse(xhr.response);
+      console.log(data);
+      diamondurl = data.url;
+      console.log(diamondurl);
+   };
+   xhr.send();
+ 
+}
 
 function chestClicked(e){
    //✔️
@@ -92,26 +109,21 @@ function chestClicked(e){
    console.log(targetclass);
    document.getElementById("highscore").innerText = points;
    var image = document.getElementById(target);
-   image.src = "chest-open.png";
+   //image.src = "chest-open.png";
    chest1 = document.getElementById("0");
    chest1.removeEventListener("click", chestClicked);
    chest2 = document.getElementById("1");
    chest2.removeEventListener("click", chestClicked);
    chest3 = document.getElementById("2");
    chest3.removeEventListener("click", chestClicked);
-}
- 
-function getImageFromPexels(){
-   // make a request towards pexels API and get 1 Diamond image
-   var xhr = new XMLHttpRequest();
-   xhr.open('GET', 'https://api.thetreasurehunt.com/resource-name?query=diamond&size=medium&per_page=1');
-   xhr.withCredentials = true;
-   xhr.setRequestHeader('Authorization', '563492ad6f91700001000001b77d6180a08d4c7cacd2a6efff8b519a');
-   xhr.onload = () => {
-      const data = JSON.parse(xhr.response);
-      console.log(data);
-   };
-   xhr.send();
+   switch(targetclass){
+      case (targetclass = "hasdiamond"):
+       image.src = diamondurl;
+       break;
+      case (targetclass = "empty"):
+       image.src = "chest-open.src"; 
+       break;
+   }
 }
  
 function refresh(){
