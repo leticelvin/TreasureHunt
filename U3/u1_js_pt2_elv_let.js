@@ -12,8 +12,8 @@ function initGameUI() {
    initChestEventListeners();
    initChests();
    initScoreBoard();
-   initRefreshButton()
-   getImageFromPexels()
+   initRefreshButton();
+   getImageFromPexels();
 }
 
 init();
@@ -76,28 +76,22 @@ function placeTreassure(){
 }
 }
 
- 
 var chest1;
 var chest2;
 var chest3;
-
-
-var diamondurl;
  
-
-function getImageFromPexels(){
+function getImageFromPexels(e){
    // make a request towards pexels API and get 1 Diamond image ✔️
+   let url = "https://api.pexels.com/v1/search?query=diamonds+query&per_page1&page=1";
    var xhr = new XMLHttpRequest();
-   xhr.open('GET', 'https://api.pexels.com/v1/search?query="diamond"&size=medium&per_page=1&page=1', true);
+   xhr.open('GET', url, true);
    xhr.setRequestHeader('Authorization', '563492ad6f917000010000011df9ef7e9ade426dae001a4f595318a2');
-   xhr.onload = () => {
-      const data = JSON.parse(xhr.response);
-      console.log(data);
-      diamondurl = data.url;
-      console.log(diamondurl);
-   };
+   xhr.addEventListener("load", function(e) {
+      let imagePexels = JSON.parse(this.response);
+      console.log(imagePexels);
+      e.target.src = imagePexels.photos[1].src.large;
+   });
    xhr.send();
- 
 }
 
 function chestClicked(e){
@@ -109,7 +103,6 @@ function chestClicked(e){
    console.log(targetclass);
    document.getElementById("highscore").innerText = points;
    var image = document.getElementById(target);
-   //image.src = "chest-open.png";
    chest1 = document.getElementById("0");
    chest1.removeEventListener("click", chestClicked);
    chest2 = document.getElementById("1");
@@ -118,10 +111,10 @@ function chestClicked(e){
    chest3.removeEventListener("click", chestClicked);
    switch(targetclass){
       case (targetclass = "hasdiamond"):
-       image.src = diamondurl;
+       image.src = imagePexels.photos;
        break;
       case (targetclass = "empty"):
-       image.src = "chest-open.src"; 
+       image.src = "chest-open.png"; 
        break;
    }
 }
