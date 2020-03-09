@@ -1,4 +1,3 @@
-
 var points = 0;
 
 // Function that initiates the whole Game application.
@@ -79,20 +78,32 @@ function placeTreassure(){
 var chest1;
 var chest2;
 var chest3;
+var imagePexels;
+var x;
  
-function getImageFromPexels(e){
-   // make a request towards pexels API and get 1 Diamond image ✔️
-   let url = "https://api.pexels.com/v1/search?query=diamonds+query&per_page1&page=1";
-   var xhr = new XMLHttpRequest();
-   xhr.open('GET', url, true);
+function getImageFromPexels(){
+   let xhr = new XMLHttpRequest();
+
+   xhr.open('GET', 'https://api.pexels.com/v1/search?query=diamonds+query&per_page1&page=1', true);
    xhr.setRequestHeader('Authorization', '563492ad6f917000010000011df9ef7e9ade426dae001a4f595318a2');
-   xhr.addEventListener("load", function(e) {
-      let imagePexels = JSON.parse(this.response);
-      console.log(imagePexels);
-      e.target.src = imagePexels.photos[1].src.large;
+   //xhr.responseType = JSON;
+
+   xhr.addEventListener('load', function(x, imagePexels){
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this);
+      //console.log(this.responseText); 
+      imagePexels = JSON.parse(this.responseText); 
+      x = imagePexels.slice(100, 171); //This cuts out the image url from the JSON response.
+      console.log(x);
+      //e.target.src = x;
+    }
+    return x;
    });
    xhr.send();
 }
+
+var imagedata = getImageFromPexels;
+var imagelink = imagedata.x;
 
 function chestClicked(e){
    //✔️
@@ -111,7 +122,7 @@ function chestClicked(e){
    chest3.removeEventListener("click", chestClicked);
    switch(targetclass){
       case (targetclass = "hasdiamond"):
-       image.src = imagePexels.photos;
+       image.src = imagelink;
        break;
       case (targetclass = "empty"):
        image.src = "chest-open.png"; 
