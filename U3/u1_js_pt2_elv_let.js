@@ -80,7 +80,6 @@ var chest1;
 var chest2;
 var chest3;
 var imagePexels;
- 
 
 function getImageFromPexels(){
    // make a request towards pexels API and get 1 Diamond image ✔️
@@ -88,10 +87,10 @@ function getImageFromPexels(){
    var xhr = new XMLHttpRequest();
    xhr.open('GET', url, true);
    xhr.setRequestHeader('Authorization', '563492ad6f917000010000011df9ef7e9ade426dae001a4f595318a2');
-   xhr.addEventListener("load", function(e) {
+   xhr.addEventListener("load", function() {
       imagePexels = JSON.parse(xhr.response); //Avoid "This".
-      console.log(imagePexels);
-      //e.target.src = imagePexels.photos[1].src.large;
+      console.log("imagePexels", imagePexels);
+      //imagePexels.photos[1].src;
    });
    xhr.send();
 }
@@ -113,7 +112,8 @@ function chestClicked(e){
    chest3.removeEventListener("click", chestClicked);
    switch(targetclass){
       case (targetclass = "hasdiamond"):
-       image.src = imagePexels.photos;
+       console.log("imagePexels2", imagePexels.photos[1].src);  
+       image.src = imagePexels.photos[1].src;
        break;
       case (targetclass = "empty"):
        image.src = "chest-open.png"; 
