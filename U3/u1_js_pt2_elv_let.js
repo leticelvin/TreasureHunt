@@ -79,17 +79,18 @@ function placeTreassure(){
 var chest1;
 var chest2;
 var chest3;
+var imagePexels;
  
-function getImageFromPexels(e){
+function getImageFromPexels(){
    // make a request towards pexels API and get 1 Diamond image ✔️
    let url = "https://api.pexels.com/v1/search?query=diamonds+query&per_page1&page=1";
    var xhr = new XMLHttpRequest();
    xhr.open('GET', url, true);
    xhr.setRequestHeader('Authorization', '563492ad6f917000010000011df9ef7e9ade426dae001a4f595318a2');
    xhr.addEventListener("load", function(e) {
-      let imagePexels = JSON.parse(this.response);
+      imagePexels = JSON.parse(this.response);
       console.log(imagePexels);
-      e.target.src = imagePexels.photos[1].src.large;
+      //e.target.src = imagePexels.photos[1].src.large;
    });
    xhr.send();
 }
