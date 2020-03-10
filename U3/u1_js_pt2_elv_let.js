@@ -1,4 +1,4 @@
-
+//THIS IS THE FINISHED VERSION OF TREASUREHUNT
 var points = 0;
 
 // Function that initiates the whole Game application.
@@ -100,9 +100,7 @@ function chestClicked(e){
    //✔️
    var target = e.target.id;
    var targetclass = e.target.className;
-   points = points + 5;
-   console.log(target);
-   console.log(targetclass);
+   console.log(target, targetclass);
    document.getElementById("highscore").innerText = points;
    var image = document.getElementById(target);
    chest1 = document.getElementById("0");
@@ -111,17 +109,17 @@ function chestClicked(e){
    chest2.removeEventListener("click", chestClicked);
    chest3 = document.getElementById("2");
    chest3.removeEventListener("click", chestClicked);
-   switch(targetclass){
-      case (targetclass = "hasdiamond"):
-         let src = imagePexels.photos[0].url;
-         console.log(imagePexels);
-         console.log(image);
-       image.src = imagePexels.photos[0].src.small; //IT WORKS!
-       break;
-      case (targetclass = "empty"):
-       image.src = "chest-open.png"; 
-       break;
+   if(targetclass === "hasdiamond"){
+      let src = imagePexels.photos[0].url;
+      console.log(image, imagePexels);
+      image.src = imagePexels.photos[0].src.small; //IT WORKS!
+      points = points + 5;
+      console.log("points: " + points);
+   } else if (targetclass === "empty"){
+      image.src = "chest-open.png";
    }
+   var score = document.querySelector("#highscore");
+   score.innerText = points;
 }
  
 function refresh(){
