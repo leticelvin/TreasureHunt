@@ -95,6 +95,7 @@ function getImageFromPexels(){
    xhr.send();
 }
 
+
 function chestClicked(e){
    //✔️
    var target = e.target.id;
@@ -112,8 +113,10 @@ function chestClicked(e){
    chest3.removeEventListener("click", chestClicked);
    switch(targetclass){
       case (targetclass = "hasdiamond"):
-       console.log("imagePexels2", imagePexels.photos[1].src);  
-       image.src = imagePexels.photos[1].src;
+         let src = imagePexels.photos[0].url;
+         console.log(imagePexels);
+         console.log(image);
+       image.src = imagePexels.photos[0].src.small; //IT WORKS!
        break;
       case (targetclass = "empty"):
        image.src = "chest-open.png"; 
