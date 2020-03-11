@@ -1,4 +1,4 @@
-//THIS IS THE FINISHED VERSION OF TREASUREHUNT
+
 var points = 0;
 
 // Function that initiates the whole Game application.
@@ -19,13 +19,12 @@ function initGameUI() {
 init();
  
 function initChests(){
-   //✔️
+   //Creates three chests using for loop and assigns each chest with its own id using the i variable.
    for (let i = 0; i<3; i++) { 
    var chest = document.createElement('img');
    chest.src = "chest-closed.png";
    chest.setAttribute("id", + i);
    chest.setAttribute("class", "empty");
-   console.log(chest.id);
    chest.addEventListener("click", chestClicked);
    
    var containerRef = document.getElementById("chests");
@@ -36,7 +35,7 @@ function initChests(){
 }
  
 function initScoreBoard(){
-   //✔️
+   //Creates a paragraph, appends it to the game-wrapper, and gives it the number of points. 
    var score = document.createElement("p");
    score.id="highscore";
    document.getElementById("game-wrapper").appendChild(score)
@@ -44,8 +43,7 @@ function initScoreBoard(){
 }
  
 function initRefreshButton(){
-   //✔️
-   console.log("initRefreshButton works");
+   //Creates refresh button and uses addEventListener to make it refresh on click.
    var refreshbutton = document.getElementById("refresh-button");
    refreshbutton.addEventListener("click", refresh);
 }
@@ -56,7 +54,7 @@ function initChestEventListeners() {
 }
  
 function placeTreassure(){
-   //✔️
+   //Generates a random number, either 1, 2, or 3. If 1, chest with id 1 gets the classname "hasdiamond".
    var z = 0;
    z = Math.floor((Math.random() * 3) + 1);
     switch(z) {
@@ -76,10 +74,11 @@ function placeTreassure(){
 }
 }
 
-var chest1;
-var chest2;
-var chest3;
-var imagePexels;
+//The "chest"-variables are used in the chestClicked function.
+var chest1; //chest with id 0
+var chest2; //chest with id 1
+var chest3; //chest with id 2
+var PexelsJSONResponse; 
 
 function getImageFromPexels(){
    // make a request towards pexels API and get 1 Diamond image ✔️
@@ -88,21 +87,18 @@ function getImageFromPexels(){
    xhr.open('GET', url, true);
    xhr.setRequestHeader('Authorization', '563492ad6f917000010000011df9ef7e9ade426dae001a4f595318a2');
    xhr.addEventListener("load", function() {
-      imagePexels = JSON.parse(xhr.response); //Avoid "This".
-      console.log("imagePexels", imagePexels);
-      //imagePexels.photos[1].src;
+      PexelsJSONResponse = JSON.parse(xhr.response); 
    });
    xhr.send();
 }
 
 
 function chestClicked(e){
-   //✔️
-   var target = e.target.id;
+   //Provides a different image depending on the classname of the clicked chest. Removes event listeners on click. 
+   var target = e.target.id; //target is the number of the chest clicked.
    var targetclass = e.target.className;
-   console.log(target, targetclass);
    document.getElementById("highscore").innerText = points;
-   var image = document.getElementById(target);
+   var image = document.getElementById(target); //image is the chest that gets clicked.
    chest1 = document.getElementById("0");
    chest1.removeEventListener("click", chestClicked);
    chest2 = document.getElementById("1");
@@ -110,11 +106,8 @@ function chestClicked(e){
    chest3 = document.getElementById("2");
    chest3.removeEventListener("click", chestClicked);
    if(targetclass === "hasdiamond"){
-      let src = imagePexels.photos[0].url;
-      console.log(image, imagePexels);
-      image.src = imagePexels.photos[0].src.small; //IT WORKS!
+      image.src = PexelsJSONResponse.photos[0].src.small;
       points = points + 5;
-      console.log("points: " + points);
    } else if (targetclass === "empty"){
       image.src = "chest-open.png";
    }
@@ -123,8 +116,7 @@ function chestClicked(e){
 }
  
 function refresh(){
-   //✔️
-   console.log("Refresh works");
+   //Gives back the chests their eventlisteners and "closes" them.
    placeTreassure();
    var picture1 = document.getElementById("0");
    picture1.src = "chest-closed.png";
@@ -139,7 +131,6 @@ function refresh(){
 }
  
 function removeChestEvents(){
-   //✔️
    document.getElementById("0").removeEventListener("click", chestClicked());
    document.getElementById("1").removeEventListener("click", chestClicked());
    document.getElementById("2").removeEventListener("click", chestClicked());  
