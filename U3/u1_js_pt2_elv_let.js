@@ -22,7 +22,7 @@ function initChests(){
    //Creates three chests using for loop and assigns each chest with its own id using the i variable.
    for (let i = 0; i<3; i++) { 
    var chest = document.createElement('img');
-   chest.src = "chest-closed.png";
+   chest.src = "https://raw.githubusercontent.com/SofthouseVxo/Education/master/courses/javascript/assignments/treassure-hunt/images/chest-closed.png";
    chest.setAttribute("id", + i);
    chest.setAttribute("class", "empty");
    chest.addEventListener("click", chestClicked);
@@ -109,7 +109,7 @@ function chestClicked(e){
       image.src = PexelsJSONResponse.photos[0].src.small;
       points = points + 5;
    } else if (targetclass === "empty"){
-      image.src = "chest-open.png";
+      image.src = "https://raw.githubusercontent.com/SofthouseVxo/Education/master/courses/javascript/assignments/treassure-hunt/images/chest-open.png";
    }
    var score = document.querySelector("#highscore");
    score.innerText = points;
@@ -117,13 +117,21 @@ function chestClicked(e){
  
 function refresh(){
    //Gives back the chests their eventlisteners and "closes" them.
+   document.getElementById("0").setAttribute("class", "empty");
+   document.getElementById("1").setAttribute("class", "empty");
+   document.getElementById("2").setAttribute("class", "empty");
    placeTreassure();
+   console.group();
+   console.log(chest1.className);
+   console.log(chest2.className);
+   console.log(chest3.className);
+   console.groupEnd();
    var picture1 = document.getElementById("0");
-   picture1.src = "chest-closed.png";
+   picture1.src = "https://raw.githubusercontent.com/SofthouseVxo/Education/master/courses/javascript/assignments/treassure-hunt/images/chest-closed.png";
    var picture2 = document.getElementById("1");
-   picture2.src = "chest-closed.png";
+   picture2.src = "https://raw.githubusercontent.com/SofthouseVxo/Education/master/courses/javascript/assignments/treassure-hunt/images/chest-closed.png";
    var picture3 = document.getElementById("2");
-   picture3.src = "chest-closed.png";
+   picture3.src = "https://raw.githubusercontent.com/SofthouseVxo/Education/master/courses/javascript/assignments/treassure-hunt/images/chest-closed.png";
    chest1.addEventListener("click", chestClicked);
    chest2.addEventListener("click", chestClicked);
    chest3.addEventListener("click", chestClicked);
