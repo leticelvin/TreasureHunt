@@ -98,6 +98,7 @@ function getImageFromPexels(){
    xhr.send();
 }
 
+var z;
 
 function chestClicked(e){
    //Provides a different image depending on the classname of the clicked chest. Removes event listeners on click. 
@@ -111,8 +112,9 @@ function chestClicked(e){
    chest2.removeEventListener("click", chestClicked);
    chest3 = document.getElementById("2");
    chest3.removeEventListener("click", chestClicked);
+   z = Math.floor((Math.random() * 9) + 1);
    if(targetclass === "hasdiamond"){
-      image.src = PexelsJSONResponse.photos[0].src.small;
+      image.src = PexelsJSONResponse.photos[z].src.small;
       points = points + 5;
    } else if (targetclass === "empty"){
       image.src = "https://raw.githubusercontent.com/SofthouseVxo/Education/master/courses/javascript/assignments/treassure-hunt/images/chest-open.png";
