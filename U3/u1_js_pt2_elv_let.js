@@ -1,9 +1,15 @@
 
+/*var script = document.querySelector("script")[0];  
+var att = document.createAttribute("defer");        
+att.value = "true";        
+script.setAttributeNode(att);*/  
+
+document.addEventListener('DOMContentLoaded', init);
+
 var points = 0;
 
-// Function that initiates the whole Game application.
 function init() {
-   //✔️
+   //✔️ Function that initiates the whole Game application.
    initGameUI();
 }
 
@@ -16,19 +22,19 @@ function initGameUI() {
    getImageFromPexels();
 }
 
-init();
- 
+//init()
+      
+
 function initChests(){
    //Creates three chests using for loop and assigns each chest with its own id using the i variable.
+   var containerRef = document.getElementById("chests");
    for (let i = 0; i<3; i++) { 
    var chest = document.createElement('img');
    chest.src = "https://raw.githubusercontent.com/SofthouseVxo/Education/master/courses/javascript/assignments/treassure-hunt/images/chest-closed.png";
    chest.setAttribute("id", + i);
    chest.setAttribute("class", "empty");
    chest.addEventListener("click", chestClicked);
-   
-   var containerRef = document.getElementById("chests");
-
+     
    containerRef.appendChild(chest);
    
    }
@@ -143,3 +149,6 @@ function removeChestEvents(){
    document.getElementById("1").removeEventListener("click", chestClicked());
    document.getElementById("2").removeEventListener("click", chestClicked());  
 }
+
+
+ 
